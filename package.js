@@ -1,9 +1,9 @@
 Package.describe({
   name: 'doichain:accounts-password-doichain',
   summary: "accounts-password with additional storage for proof of existence on the Doichain blockchain",
-  git: 'https://github.com/inspiraluna/meteor.git',
+  git: ' https://github.com/Doichain/meteor-accounts-password-doichain.git',
   documentation: 'README.md',
-  version: "0.0.2"
+  version: "0.0.3"
 });
 
 Package.onUse(api => {
