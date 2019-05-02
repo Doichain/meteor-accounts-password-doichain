@@ -6,7 +6,7 @@ import { getSettings} from "meteor/doichain:settings";
 
 Meteor.startup(() => {
   // code to run on server at startup
-  Accounts.config({sendVerificationEmail: true , forbidClientAccountCreation:false});
+  //Accounts.config({sendVerificationEmail: true , forbidClientAccountCreation:false});
 
   _.extend(Accounts,{
     sendVerificationEmail: function(userId, email, extraTokenData){
