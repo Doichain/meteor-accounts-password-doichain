@@ -1,5 +1,3 @@
-/// BCRYPT
-
 import {Meteor} from "meteor/meteor";
 import { HTTP } from 'meteor/http'
 import { getSettings} from "meteor/doichain:settings";
@@ -44,11 +42,18 @@ function request_DOI(recipient_mail, sender_mail, data,  log, callback) {
 
   const dappUrl = getUrl(); //TODO this is default - alternatively get it from settings.json - alternatively get it from db
   //check if userId and Token is already in settings
-  let dAppLogin = getSettings('dAppLogin');
+  let dAppLogin = getSettings('doichain.dAppLogin');
   if(dAppLogin===undefined){ //if not in settings
     //get dApp username and password from settings and request a userId and token
-    const dAppUsername = getSettings('dAppUsername','admin');
-    const dAppPassword = getSettings('dAppPassword','password');
+    const dAppUsername = getSettings('doichain.dAppUsername','admin');
+    let dAppPassword = getSettings('doichain.dAppPassword');
+
+    //try default password 'password' in case dApp run's on localhost and password was not configured
+    if(dAppPassword === undefined &&
+        (dappUrl.indexOf("localhost")!=-1 || dappUrl.indexOf("127.0.0.1")!=-1)){
+      dAppPassword = 'password';
+    }
+
     const paramsLogin = {
       "username": dAppUsername,
       "password":dAppPassword
@@ -64,7 +69,7 @@ function request_DOI(recipient_mail, sender_mail, data,  log, callback) {
         resultLogin.data == undefined ||
         resultLogin.data.data == undefined){
     } throw "login to Doichain dApp failed: "+dappUrl+" please check credentials"+paramsLogin;
-    dAppLogin = getSettings('dAppLogin',resultLogin.data.data);
+    dAppLogin = getSettings('doichain.dAppLogin',resultLogin.data.data);
   }
 
   console.log('sendVerificationEmail over Doichain requested.',dAppLogin);
