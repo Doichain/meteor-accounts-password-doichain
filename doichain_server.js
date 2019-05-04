@@ -3,10 +3,7 @@ import { HTTP } from 'meteor/http'
 import { getSettings} from "meteor/doichain:settings";
 
 Meteor.startup(() => {
-  // code to run on server at startup
-  //Accounts.config({sendVerificationEmail: true , forbidClientAccountCreation:false});
-
-  _.extend(Accounts,{
+   _.extend(Accounts,{
     sendVerificationEmail: function(userId, email, extraTokenData){
 
       const {email: realEmail, user, token} = Accounts.generateVerificationToken(userId, email, extraTokenData);
@@ -45,13 +42,13 @@ function request_DOI(recipient_mail, sender_mail, data,  log, callback) {
   let dAppLogin = getSettings('doichain.dAppLogin');
   if(dAppLogin===undefined){ //if not in settings
     //get dApp username and password from settings and request a userId and token
-    const dAppUsername = getSettings('doichain.dAppUsername','admin');
+    const dAppUsername = getSettings('doichain.dAppUsername','admin@doichain.org');
     let dAppPassword = getSettings('doichain.dAppPassword');
 
     //try default password 'password' in case dApp run's on localhost and password was not configured
     if(dAppPassword === undefined &&
         (dappUrl.indexOf("localhost")!=-1 || dappUrl.indexOf("127.0.0.1")!=-1)){
-      dAppPassword = 'password';
+        dAppPassword = getSettings('doichain.dAppPassword',password);
     }
 
     const paramsLogin = {

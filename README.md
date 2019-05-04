@@ -30,7 +30,7 @@ or use a userId:token pair as invented by acccounts-password:
 ```json
 {
   "doichain": {
-    "dappLogin": {"userId": xyz, "token": "bal" }
+    "dappLogin": {"userId": xyz, "authToken": "bal" }
     }
 }
 ```
