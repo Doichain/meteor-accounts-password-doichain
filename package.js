@@ -3,7 +3,7 @@ Package.describe({
   summary: "accounts-password with additional storage for proof of existence on the Doichain blockchain",
   git: ' https://github.com/Doichain/meteor-accounts-password-doichain.git',
   documentation: 'README.md',
-  version: "0.0.7"
+  version: "0.0.8"
 });
 
 Package.onUse(api => {

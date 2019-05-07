@@ -40,6 +40,3 @@ to a server with public ip like so (connect local testnet http dapp port 81 to e
 ```bash
 ssh -R 4000:localhost:81 your@your-remote-ssh-server
 ```
-
-A login service that enables secure password-based login and requests the verification email or enrollment email (Double-Opt-In) over Doichain blockchain.  
-See the [project page](https://www.meteor.com/accounts) on Meteor Accounts for more details.
