@@ -8,11 +8,11 @@ This module needs a running both a Doichain Node and Doichain dApp in order work
 
 Usage:
 1. Setup Doichain Node and Doichain dApp as described here: https://github.com/Doichain/dapp
-1. Create a Meteor project ```meteor create my-doichain-project; cd my-doichain-project```
-2. Execute ```meteor add accounts-password accounts-ui doichain:accounts-password-doichain```
-3. Run project ```meteor```
-4. Add ``{{> loginButtons}}`` to your template.
-5. Configure URL and credentials of your Doichain dApp in settings.json like so: 
+2. Create a Meteor project ```meteor create my-doichain-project; cd my-doichain-project```
+3. Execute ```meteor add accounts-password accounts-ui doichain:accounts-password-doichain```
+4. Run project ```meteor```
+5. Add ``{{> loginButtons}}`` to your template.
+6. Configure URL and credentials of your (Testnet) Doichain dApp in settings.json like so: 
 ```json
 {
   "app": {
@@ -21,18 +21,24 @@ Usage:
     "ssl": false,
   },
   "doichain": {
-    "dappUsername": "admin",
-    "dappPassword": "<password>"
-    },
+    "dAppUsername": "admin",
+    "dAppPassword": "password"
+  }
 }
 ```
 or use a userId:token pair as invented by acccounts-password:
 ```json
 {
   "doichain": {
-    "dappLogin": {"userId": xyz, "authToken": "bal" }
+        "dappLogin": {"userId": "xyz", "authToken": "bal" }
     }
 }
+```
+8. if you run your dapp on a non-public-ip 
+you might have to forward the http-port of the dapp (e.g. mainnet e.g. 80 or 3000 / testnet 81) 
+to a server with public ip like so (connect local testnet http dapp port 81 to e.g. remote port 4000:
+```bash
+ssh -R 4000:localhost:81 your@your-remote-ssh-server
 ```
 
 A login service that enables secure password-based login and requests the verification email or enrollment email (Double-Opt-In) over Doichain blockchain.  

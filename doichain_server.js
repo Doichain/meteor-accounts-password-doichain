@@ -65,7 +65,7 @@ function request_DOI(recipient_mail, sender_mail, data,  log, callback) {
     if(resultLogin===undefined ||
         resultLogin.data == undefined ||
         resultLogin.data.data == undefined){
-    } throw "login to Doichain dApp failed: "+dappUrl+" please check credentials"+paramsLogin;
+    } throw "login to Doichain dApp failed: "+dappUrl+" please check credentials"+JSON.stringify(paramsLogin);
     dAppLogin = getSettings('doichain.dAppLogin',resultLogin.data.data);
   }
 
