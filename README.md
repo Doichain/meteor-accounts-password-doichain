@@ -18,7 +18,7 @@ Usage:
   "app": {
     "host": "localhost",
     "port": "81",
-    "ssl": false,
+    "ssl": false
   },
   "doichain": {
     "dAppUsername": "admin",

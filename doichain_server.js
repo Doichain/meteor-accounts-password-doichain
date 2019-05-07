@@ -3,15 +3,28 @@ import { HTTP } from 'meteor/http'
 import { getSettings} from "meteor/doichain:settings";
 
 Meteor.startup(() => {
+
+    //in case you use this package together with meteor-doichain-api  you might want to disable Accounts config here!
+    //just add app.disableAccountsConfig=true in 
+    const accounts_disableConfig = getSettings('app.disableAccountsConfig');
+    if(accounts_disableConfig === undefined || accounts_disableConfig===false){
+        const accounts_sendVerificationEmail = getSettings('accounts.sendVerificationEmail',true);
+        const accounts_forbidClientAccountCreation = getSettings('accounts.forbidClientAccountCreation',false); //we allow accounts creation by default
+        Accounts.config({
+            sendVerificationEmail: accounts_sendVerificationEmail,
+            forbidClientAccountCreation: accounts_forbidClientAccountCreation
+        });
+        Accounts.emailTemplates.from=getSettings('Accounts.emailTemplates.from','doichain@le-space.de');
+    }
+
    _.extend(Accounts,{
     sendVerificationEmail: function(userId, email, extraTokenData){
 
       const {email: realEmail, user, token} = Accounts.generateVerificationToken(userId, email, extraTokenData);
       const url = Accounts.urls.verifyEmail(token);
       const options = Accounts.generateOptionsForEmail(realEmail, user, url, 'verifyEmail');
-      //Email.send(options);
       console.log('now requesting email permission');
-      //TODO - set request doi template and redirect param from accounts-password
+      //TODO - set request doi template via UI and db
       //TODO parse form data and store it inside dapp (use old feature of florian)
       requestDOI(options.to,options.to,null,true);
 
@@ -61,11 +74,14 @@ function request_DOI(recipient_mail, sender_mail, data,  log, callback) {
 
     const realDataLogin= { params: paramsLogin, headers: headersLogin };
     const resultLogin = HTTP.post(urlLogin, realDataLogin);
-    //console.log("resultLogin",resultLogin)
-    if(resultLogin===undefined ||
-        resultLogin.data == undefined ||
-        resultLogin.data.data == undefined){
-    } throw "login to Doichain dApp failed: "+dappUrl+" please check credentials"+JSON.stringify(paramsLogin);
+    if(resultLogin === undefined ||
+        resultLogin.data === undefined ||
+        resultLogin.data.data === undefined ){
+      console.log(resultLogin === undefined);
+      console.log(resultLogin.data === undefined);
+        console.log(resultLogin.data === undefined);
+      throw "login to Doichain dApp failed: "+dappUrl+" please check credentials"+JSON.stringify(resultLogin.data);
+    }
     dAppLogin = getSettings('doichain.dAppLogin',resultLogin.data.data);
   }
 
@@ -98,10 +114,12 @@ function request_DOI(recipient_mail, sender_mail, data,  log, callback) {
     console.log(urlOptIn);
     console.log(dataOptIn);
     const resultOptIn = HTTP.post(urlOptIn, realDataOptIn);
-    if(resultOptIn===undefined ||
-        resultOptIn.data == undefined ||
-        resultOptIn.data.data == undefined){
-    } throw "login to Doichain dApp failed: "+dappUrl+" please check credentials"+paramsLogin;
+    console.log(resultOptIn.data.status);
+    
+    if(resultOptIn.data === undefined || resultOptIn.data.status!=="success"){
+        throw "login to Doichain dApp failed: "+dappUrl+" please check credentials"+JSON.stringify(resultOptIn);
+    } 
+
     console.log("RETURNED VALUES: ",resultOptIn);
     callback(null,resultOptIn.data);
   }
