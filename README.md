@@ -1,6 +1,5 @@
 # accounts-password-doichain - how to blockchain your Double-Opt-ins
 
-
 ## Description
 extends accounts-password and sends account creation emails instead over smtp but over the Doichain blockchain as a SOI (Single-Opt-In transaction)
 
@@ -34,9 +33,9 @@ or use a userId:token pair as invented by acccounts-password:
     }
 }
 ```
-8. if you run your dapp on a non-public-ip 
-you might have to forward the http-port of the dapp (e.g. mainnet e.g. 80 or 3000 / testnet 81) 
-to a server with public ip like so (connect local testnet http dapp port 81 to e.g. remote port 4000:
+8. if you run your dapp on a non-public-ip forward your local port a remote server
 ```bash
 ssh -R 4000:localhost:81 your@your-remote-ssh-server
 ```
+9. ***DON'T FORGET to add CAPTCHA***
+since your Doicoi wallet will be empty very quickly when you get bot visitors. https://github.com/meteor-useraccounts/core/blob/acded6633c6db153857b7dd244fd022101c509ce/Guide.md#reCaptcha-setup
