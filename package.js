@@ -3,7 +3,7 @@ Package.describe({
   summary: "accounts-password with additional storage for proof of existence on the Doichain blockchain",
   git: ' https://github.com/Doichain/meteor-accounts-password-doichain.git',
   documentation: 'README.md',
-  version: "0.1.2"
+  version: "0.1.3"
 });
 
 Package.onUse(api => {
@@ -11,7 +11,7 @@ Package.onUse(api => {
     'ecmascript@0.12.7',
     'accounts-password@1.5.1',
     'http@1.4.2',
-    'doichain:settings@0.2.5',
+    'doichain:settings@0.2.6',
     'erasaur:meteor-lodash@4.0.0'
   ], ['server']);
 
