@@ -16,7 +16,7 @@ Usage:
 {
   "app": {
     "host": "localhost",
-    "port": "81",
+    "port": "4010",
     "ssl": false
   },
   "doichain": {
@@ -35,7 +35,8 @@ or use a userId:token pair as invented by acccounts-password:
 ```
 8. if you run your dapp on a non-public-ip forward your local port a remote server
 ```bash
-ssh -R 4000:localhost:81 your@your-remote-ssh-server
+ssh -R 4010:localhost:4010 your@your-remote-ssh-server
 ```
 9. ***DON'T FORGET to add CAPTCHA***
 since your Doicoi wallet will be empty very quickly when you get bot visitors. https://github.com/meteor-useraccounts/core/blob/acded6633c6db153857b7dd244fd022101c509ce/Guide.md#reCaptcha-setup
+10. Fund you wallet! If you need Testnet-Doicoin please request it on the telegram group: @doichain_dev or https://t.me/doichain_dev

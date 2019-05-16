@@ -55,7 +55,7 @@ function request_DOI(recipient_mail, sender_mail, data,  log, callback) {
   let dAppLogin = getSettings('doichain.dAppLogin');
   if(dAppLogin===undefined){ //if not in settings
     //get dApp username and password from settings and request a userId and token
-    const dAppUsername = getSettings('doichain.dAppUsername','admin@doichain.org');
+    const dAppUsername = getSettings('doichain.dAppUsername','admin');
     let dAppPassword = getSettings('doichain.dAppPassword');
 
     //try default password 'password' in case dApp run's on localhost and password was not configured
@@ -138,7 +138,7 @@ function request_DOI(recipient_mail, sender_mail, data,  log, callback) {
  */
 function getUrl() {
   let ssl = getSettings('app.ssl',false); //default true!
-  let port = getSettings('app.port',3000);
+  let port = getSettings('app.port',3010); //default on testnet dApp
   let host = getSettings('app.host','localhost');
   let protocol = "https://";
   if(!ssl) protocol = "http://";
