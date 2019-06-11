@@ -8,6 +8,7 @@ Meteor.startup(() => {
     //just add app.disableAccountsConfig=true in
     const accounts_disableConfig = (getSettings('app.disableAccountsConfig',true)==='true')
     if(!accounts_disableConfig){
+      console.log('accounts_disableConfig',accounts_disableConfig)
         Accounts.config({
             sendVerificationEmail: (getSettings('accounts.sendVerificationEmail',true)==='true'),
             forbidClientAccountCreation: (getSettings('accounts.forbidClientAccountCreation',false)==='true')

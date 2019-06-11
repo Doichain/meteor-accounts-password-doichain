@@ -22,7 +22,7 @@ or use a userId:token pair as invented by acccounts-password:
 ```json
 {
   "doichain": {
-        "dappLogin": {"userId": "xyz", "authToken": "bal" }
+        "dAppLogin": {"userId": "xyz", "authToken": "bal" }
     }
 }
 ```
