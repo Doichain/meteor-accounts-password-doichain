@@ -2,23 +2,20 @@ import {Meteor} from "meteor/meteor";
 import { HTTP } from 'meteor/http'
 import { getSettings} from "meteor/doichain:settings";
 
-const debug = getSettings('app.debug',false);
-
+const debug = (getSettings('app.debug',true)==='true')
 Meteor.startup(() => {
     //in case you use this package together with meteor-doichain-api  you might want to disable Accounts config here!
-    //just add app.disableAccountsConfig=true in 
-    const accounts_disableConfig = getSettings('app.disableAccountsConfig');
-    if(accounts_disableConfig === undefined || accounts_disableConfig===false){
-        const accounts_sendVerificationEmail = getSettings('accounts.sendVerificationEmail',true);
-        const accounts_forbidClientAccountCreation = getSettings('accounts.forbidClientAccountCreation',false); //we allow accounts creation by default
+    //just add app.disableAccountsConfig=true in
+    const accounts_disableConfig = (getSettings('app.disableAccountsConfig',true)==='true')
+    if(!accounts_disableConfig){
         Accounts.config({
-            sendVerificationEmail: accounts_sendVerificationEmail,
-            forbidClientAccountCreation: accounts_forbidClientAccountCreation
+            sendVerificationEmail: (getSettings('accounts.sendVerificationEmail',true)==='true'),
+            forbidClientAccountCreation: (getSettings('accounts.forbidClientAccountCreation',false)==='true')
         });
         Accounts.emailTemplates.from=getSettings('Accounts.emailTemplates.from','doichain@le-space.de');
     }
-
    _.extend(Accounts,{
+
     sendVerificationEmail: function(userId, email, extraTokenData){
 
       const {email: realEmail, user, token} = Accounts.generateVerificationToken(userId, email, extraTokenData);
@@ -26,9 +23,13 @@ Meteor.startup(() => {
       const options = Accounts.generateOptionsForEmail(realEmail, user, url, 'verifyEmail');
       if(debug) console.log('now requesting email permission');
       //TODO - set request doi template via UI and db
+      //TODO - personalized emails
       //TODO parse form data and store it inside dapp (use old feature of florian)
-      requestDOI(options.to,options.from,null,true);
-
+      try{
+        requestDOI(options.to,options.from,null,true);
+      }catch(ex){
+        console.error('error occured on Doichain dApp - ',ex);
+      }
       return {email: realEmail, user, token, url, options};
     },
     sendEnrollmentEmail: function(userId, email, extraTokenData){
@@ -137,12 +138,12 @@ function request_DOI(recipient_mail, sender_mail, data,  log, callback) {
  * @returns String
  */
 function getUrl() {
-  let ssl = getSettings('app.ssl',false); //default true!
-  let port = getSettings('app.port',3010); //default on testnet dApp
-  let host = getSettings('app.host','localhost');
+  const ssl =  (getSettings('doichain.ssl',false)==='true'); //default true!
+  const port = getSettings('doichain.port',3010); //default on testnet dApp
+  const host = getSettings('doichain.host','localhost');
   let protocol = "https://";
   if(!ssl) protocol = "http://";
 
-  if(host!==undefined) return protocol+host+":"+port+"/";
+  if(host!==undefined) return protocol+host+":"+port;
   return Meteor.absoluteUrl();
 }
