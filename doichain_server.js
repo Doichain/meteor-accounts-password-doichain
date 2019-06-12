@@ -2,16 +2,16 @@ import {Meteor} from "meteor/meteor";
 import { HTTP } from 'meteor/http'
 import { getSettings} from "meteor/doichain:settings";
 
-const debug = (getSettings('app.debug',true)==='true')
+const debug = getSettings('app.debug',true)
 Meteor.startup(() => {
     //in case you use this package together with meteor-doichain-api  you might want to disable Accounts config here!
     //just add app.disableAccountsConfig=true in
-    const accounts_disableConfig = (getSettings('app.disableAccountsConfig',true)==='true')
+    const accounts_disableConfig = getSettings('app.disableAccountsConfig',true)
     if(!accounts_disableConfig){
       console.log('accounts_disableConfig',accounts_disableConfig)
         Accounts.config({
-            sendVerificationEmail: (getSettings('accounts.sendVerificationEmail',true)==='true'),
-            forbidClientAccountCreation: (getSettings('accounts.forbidClientAccountCreation',false)==='true')
+            sendVerificationEmail: getSettings('accounts.sendVerificationEmail',true),
+            forbidClientAccountCreation: getSettings('accounts.forbidClientAccountCreation',false)
         });
         Accounts.emailTemplates.from=getSettings('Accounts.emailTemplates.from','doichain@le-space.de');
     }
