@@ -26,7 +26,7 @@ or use a userId:token pair as invented by acccounts-password:
     }
 }
 ```
-```
+
 8. Add another project user to your Doichain dapp (e.g. project-a-en - en for English) and change mailTemplate data like so:
 ```
 curl -X PUT -H "Content-Type: application/json" \ 
@@ -35,8 +35,8 @@ curl -X PUT -H "Content-Type: application/json" \
     -d '{"mailTemplate":{"subject":"Welcome to myp project","redirect":"http://myproject.mydomain.com","returnPath":"myproject@mydomain.com","templateURL":"http://server-of-your-email-template/welcome_en.txt"}}' \
     http://localhost:4010/api/v1/users/<the users id> 
 ```
-9. Save your email template at the above configured url (reachable by your projects server) e.g.
 
+9. Save your email template at the above configured url (reachable by your projects server) e.g.
 ```
 Welcome to the Doichain Bounty Project!
 

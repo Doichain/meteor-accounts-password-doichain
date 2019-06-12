@@ -11,7 +11,7 @@ Package.onUse(api => {
     'ecmascript@0.12.7',
     'accounts-password@1.5.1',
     'http@1.4.2',
-    'doichain:settings@0.2.15',
+    'doichain:settings@0.2.16',
     'erasaur:meteor-lodash@4.0.0'
   ], ['server']);
 
