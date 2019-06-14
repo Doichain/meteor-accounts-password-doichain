@@ -66,4 +66,4 @@ ssh -R 4010:localhost:4010 your@your-remote-ssh-server
 ```
 11. ***DON'T FORGET to add CAPTCHA***
 since your Doicoin wallet will be empty very quickly when you get bot visitors. https://github.com/meteor-useraccounts/core/blob/acded6633c6db153857b7dd244fd022101c509ce/Guide.md#reCaptcha-setup
-12. Fund you wallet! If you need Testnet-Doicoin please request it on the telegram group: @doichain_dev or https://t.me/doichain_dev
+12. Fund you wallet! If you need Testnet-Doicoin please request it on the Telegram group: @doichain or https://t.me/doichain
